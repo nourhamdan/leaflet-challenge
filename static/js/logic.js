@@ -63,7 +63,7 @@ d3.json(queryUrl, function(data) {
       },
       // cirecle style
       style: styleInfo,
-      // popup for each marker
+      // popup for each marker shows the magnitude
       onEachFeature: function(feature, layer) {
         layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
       }
