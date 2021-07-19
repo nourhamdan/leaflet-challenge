@@ -1,5 +1,5 @@
 // Visualizing-Data-with-Leaflet - logic.js
-// Earthquakes & Tectonic Plates GeoJSON URL Variables
+//URL Variables
 var earthquakesURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 var platesURL = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json"
 //var platesURL = /input/tectonicplates-master/GeoJSON/PB2002_boundaries.json
@@ -38,19 +38,19 @@ var overlayMaps = {
     "Fault Lines": tectonicPlates
 };
 
-// Create Map, Passing In satelliteMap & earthquakes as Default Layers to Display on Load
+// Create Map 
 var myMap = L.map("map", {
     center: [37.09, -95.71],
     zoom: 2,
     layers: [satelliteMap, earthquakes]
 });
 
-// Create a Layer Control + Pass in baseMaps and overlayMaps + Add the Layer Control to the Map
+// Create a Layer Control + Add the Layer Control to the Map
 L.control.layers(baseMaps, overlayMaps, {
     collapsed: true
   }).addTo(myMap);
 
-// Retrieve earthquakesURL (USGS Earthquakes GeoJSON Data) with D3
+// Retrieve earthquakesURL  with D3
 d3.json(earthquakesURL, function(earthquakeData) {
     // Function to Determine Size of Marker Based on the Magnitude of the Earthquake
     function markerSize(magnitude) {
@@ -71,7 +71,7 @@ d3.json(earthquakesURL, function(earthquakeData) {
           weight: 0.5
         };
     }
-    // Function to Determine Color of Marker Based on the Magnitude of the Earthquake
+    // Function to determine the color of the magnitude
     function chooseColor(magnitude) {
         switch (true) {
         case magnitude > 5:
@@ -88,7 +88,7 @@ d3.json(earthquakesURL, function(earthquakeData) {
             return "#DAF7A6";
         }
     }
-    // Create a GeoJSON Layer Containing the Features Array on the earthquakeData Object
+    // Create a GeoJSON Layer
     L.geoJSON(earthquakeData, {
         pointToLayer: function(feature, latlng) {
             return L.circleMarker(latlng);
